@@ -2,19 +2,27 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed;
     public float turnSpeed;
-    public float teleDistance;
+    public float boostSpeed;
 
+    [Header("Teleport")]
+    public float teleDistance;
     public float teleDistMin;
     public float teleDistMax;
 
-    public float boostSpeed;
+    [Header("Componets")]
+    public Health health;
+    public Death death;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // load the health component from the object
+        health = GetComponent<Health>();
+        // load the death componen from the object
+        death = GetComponent<Death>();
     }
 
     // Update is called once per frame
