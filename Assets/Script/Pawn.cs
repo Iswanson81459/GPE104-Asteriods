@@ -30,6 +30,51 @@ public class Pawn : MonoBehaviour
     {
         
     }
+    public void MoveTowards(Vector3 pointToMoveTowards)
+    {
+        // Find vector to that point 
+        Vector3 moveVector = pointToMoveTowards - transform.position;
+        // normalize it
+        moveVector.Normalize();
+        // muliply by speed
+        moveVector *= moveSpeed;
+        // Make it uniters per second insteead of units per fram
+        moveVector *= Time.deltaTime;
+        //move that vector from my current position
+        transform.position = transform.position + moveVector;
+    }
+
+    public void MoveTowards(GameObject objectToMoveTowards)
+    {
+        if (objectToMoveTowards != null)
+        {
+            MoveTowards(objectToMoveTowards.transform);
+        }
+    }
+
+    public void MoveTowards(Transform objectToMoveTowards)
+    {
+        if (objectToMoveTowards != null)
+        {
+            MoveTowards(objectToMoveTowards.position);
+        }
+    }
+
+    public void MoveTowards(Pawn pawnToMoveTowards)
+    {
+        if(pawnToMoveTowards != null)
+        {
+            MoveTowards(pawnToMoveTowards.gameObject);
+        }
+    }
+
+    public void MoveTowards(Controller controllerToMoveTowards)
+    {
+        if (controllerToMoveTowards != null)
+        {
+            MoveTowards(controllerToMoveTowards.pawn);
+        }
+    }
 
     public void MoveForward(float moveSpeed)
     {

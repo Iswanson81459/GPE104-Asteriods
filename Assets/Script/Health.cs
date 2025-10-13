@@ -23,6 +23,8 @@ public class Health : MonoBehaviour
 
         if (!isAlive())
         {
+            // Change the amount of damage based on armor value
+
             currentHealth = 0;
             Die();
         }
