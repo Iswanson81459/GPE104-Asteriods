@@ -3,20 +3,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // there can only be one esconor the one game manager 
-    public static GameManager escanorTheOne;
+    public static GameManager instance;
 
     public float age;
     public static float hp;
 
     void Awake()
     {
-        if(escanorTheOne == null)
+        if(instance == null)
         {
-            escanorTheOne = this;
+            instance = this;
         }
         else
         {
-            Destroy(escanorTheOne);
+            Destroy(instance);
         }
         
     }

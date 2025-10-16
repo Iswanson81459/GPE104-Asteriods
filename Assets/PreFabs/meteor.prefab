@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0541a6f77b9c5634abb4de6275a414c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 8
   turnSpeed: 0
   boostSpeed: 0
   teleDistance: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instantKill: 1
   damageDone: 0
+  destroyOnDamage: 0
 --- !u!50 &6601316480357134179
 Rigidbody2D:
   serializedVersion: 5
