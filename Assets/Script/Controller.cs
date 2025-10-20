@@ -74,6 +74,12 @@ public class Controller : MonoBehaviour
             {
                 pawn.UnBoostSpeed(pawn.boostSpeed);
             }
+
+            //shoot
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                pawn.Shoot(pawn.fireRate);
+            }
         }
         
     }

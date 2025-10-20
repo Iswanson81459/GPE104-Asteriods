@@ -12,9 +12,13 @@ public class Pawn : MonoBehaviour
     public float teleDistMin;
     public float teleDistMax;
 
+    [Header("Shoot")]
+    public float fireRate;
+
     [Header("Componets")]
     public Health health;
     public Death death;
+    public ShooterBullet shoot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -131,5 +135,10 @@ public class Pawn : MonoBehaviour
     public void UnBoostSpeed(float boostSpeed)
     {
         this.moveSpeed -= boostSpeed;
+    }
+
+    public void Shoot(float fireRate)
+    {
+        shoot.Fire();
     }
 }

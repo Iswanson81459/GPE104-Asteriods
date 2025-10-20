@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager instance;
+
     }
 
     public void TakeDamage(float amount)

@@ -1,30 +1,34 @@
 using UnityEngine;
 
-public class DamageOnOverlap : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
+    public int damageDone;
+    public float timeTillDespawn;
+    public float moveSpeed;
     public bool instantKill;
-    public float damageDone;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.instance.damageZones.Add(this);
+        // Debug.Log("Projectile was spawned");
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        // after some time destroyes the bullet 
+        Destroy(this.gameObject, timeTillDespawn);
     }
 
-    void OnDestroy()
+    private void Update()
     {
-         GameManager.instance.damageZones.Remove(this);
+        // moves the bullet a set distance defined by moveSpeed
+        transform.position = transform.position + ((transform.up * moveSpeed) * Time.deltaTime);
     }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(!instantKill)
+        if (!instantKill)
         {
             Debug.Log("hit!" + other.gameObject.name);
 
@@ -37,11 +41,13 @@ public class DamageOnOverlap : MonoBehaviour
         else
         {
             Death otherObject = other.GetComponent<Death>();
-            if(otherObject != null)
+            if (otherObject != null)
             {
                 otherObject.Die();
             }
-            
-        }      
+
+        }
+
+        Destroy(this.gameObject);
     }
 }
