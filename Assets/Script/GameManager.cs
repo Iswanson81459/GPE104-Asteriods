@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public List<DamageOnOverlap> damageZones;
     public Pawn player;
 
+    [Header("Timer")]
+    public float timeRemaining;
+    public float maxTime;
+
 
     // So that the game result win/lose only plays onces
     private bool playGameResult = true;
@@ -30,6 +34,12 @@ public class GameManager : MonoBehaviour
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
+    {
+        // set the timr to max time
+        timeRemaining = maxTime;
+    }
+
+    public void ResetTimer()
     {
         
     }
