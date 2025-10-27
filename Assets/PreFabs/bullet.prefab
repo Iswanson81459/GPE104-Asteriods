@@ -181,4 +181,4 @@ MonoBehaviour:
   damageDone: 1
   timeTillDespawn: 5
   moveSpeed: 50
-  instantKill: 1
+  instantKill: 0

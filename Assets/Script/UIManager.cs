@@ -4,8 +4,19 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Timer")]
     public Image timerImage;
     public TMP_Text buttomText;
+
+    [Header("Player Health")]
+    private float lastCurrentHealth;
+    public Slider playerHealthSlider;
+    public Health playerHealth;
+
+    [Header("Score")]
+    // currentScore used to make sure to only change the txt if score has changed
+    private int currentScore = 0;
+    public TMP_Text scoreText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +29,19 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         UpdateTimer();
+        if(playerHealth.currentHealth != lastCurrentHealth)
+        {
+            UpdatePlayerHealthUI();
+        }
+        
+        
+        // only update the score if the score has changed
+        if (GameManager.instance.score != currentScore) 
+        {
+            UpdateScoreUI();
+            Debug.Log("Score updated on change");
+        }
+        
     }
 
     void UpdateTimer()
@@ -28,5 +52,25 @@ public class UIManager : MonoBehaviour
         float displayTimer = (Mathf.Round(GameManager.instance.timeRemaining * 100)) / 100;
 
         buttomText.text = "Time Remaining: " + displayTimer;
+    }
+
+    void UpdatePlayerHealthUI()
+    {
+        lastCurrentHealth = playerHealth.currentHealth;
+
+        if (playerHealthSlider != null && playerHealth != null)
+        {
+            playerHealthSlider.value = playerHealth.currentHealth / playerHealth.maxHealth;
+        }
+        else if(playerHealthSlider != null && playerHealth == null)
+        {
+            playerHealthSlider.value = 0;
+        }   
+    }
+
+    void UpdateScoreUI()
+    {
+        currentScore = GameManager.instance.score;
+        scoreText.text = currentScore.ToString();
     }
 }
