@@ -2,25 +2,82 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed;
     public float turnSpeed;
-    public float teleDistance;
+    public float boostSpeed;
 
+    [Header("Teleport")]
+    public float teleDistance;
     public float teleDistMin;
     public float teleDistMax;
 
-    public float boostSpeed;
+    [Header("Shoot")]
+    public float fireRate;
+
+    [Header("Componets")]
+    public Health health;
+    public Death death;
+    public ShooterBullet shoot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // load the health component from the object
+        health = GetComponent<Health>();
+        // load the death componen from the object
+        death = GetComponent<Death>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void MoveTowards(Vector3 pointToMoveTowards)
+    {
+        // Find vector to that point 
+        Vector3 moveVector = pointToMoveTowards - transform.position;
+        // normalize it
+        moveVector.Normalize();
+        // muliply by speed
+        moveVector *= moveSpeed;
+        // Make it uniters per second insteead of units per fram
+        moveVector *= Time.deltaTime;
+        //move that vector from my current position
+        transform.position = transform.position + moveVector;
+    }
+
+    public void MoveTowards(GameObject objectToMoveTowards)
+    {
+        if (objectToMoveTowards != null)
+        {
+            MoveTowards(objectToMoveTowards.transform);
+        }
+    }
+
+    public void MoveTowards(Transform objectToMoveTowards)
+    {
+        if (objectToMoveTowards != null)
+        {
+            MoveTowards(objectToMoveTowards.position);
+        }
+    }
+
+    public void MoveTowards(Pawn pawnToMoveTowards)
+    {
+        if(pawnToMoveTowards != null)
+        {
+            MoveTowards(pawnToMoveTowards.gameObject);
+        }
+    }
+
+    public void MoveTowards(Controller controllerToMoveTowards)
+    {
+        if (controllerToMoveTowards != null)
+        {
+            MoveTowards(controllerToMoveTowards.pawn);
+        }
     }
 
     public void MoveForward(float moveSpeed)
@@ -78,5 +135,10 @@ public class Pawn : MonoBehaviour
     public void UnBoostSpeed(float boostSpeed)
     {
         this.moveSpeed -= boostSpeed;
+    }
+
+    public void Shoot(float fireRate)
+    {
+        shoot.Fire();
     }
 }
