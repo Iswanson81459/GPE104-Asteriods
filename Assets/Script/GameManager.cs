@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("Sound Clips")]
     public AudioClip shootingSound;
     public AudioClip explositonSound;
+    public AudioClip deathSound;
+    public AudioClip VictorySound;
 
     // So that the game result win/lose only plays onces
     private bool playGameResult = true;
