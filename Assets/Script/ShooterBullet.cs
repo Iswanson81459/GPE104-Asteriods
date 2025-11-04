@@ -22,7 +22,8 @@ public class ShooterBullet : MonoBehaviour
     {
         // Generate the bullet projectile at a defined postition and with the rotation of the parent
         Instantiate(bulletToShoot, startPostition.position, transform.rotation);
-        if(myAudioSource != null)
+        
+        if(myAudioSource != null && GameManager.instance.shootingSound != null)
         {
             myAudioSource.PlayOneShot(GameManager.instance.shootingSound);
         }

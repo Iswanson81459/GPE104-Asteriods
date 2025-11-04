@@ -18,7 +18,7 @@ public class DeathDestroy : Death
             GameManager.instance.UpdateScore(scoreAmount);
         }
 
-        if(playDeathSound)
+        if(playDeathSound && GameManager.instance.deathSound != null)
         {
             Debug.Log(this + ": Played audio");
             AudioSource.PlayClipAtPoint(GameManager.instance.deathSound, Vector3.zero);

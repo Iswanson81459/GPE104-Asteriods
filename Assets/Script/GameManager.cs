@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
     public AudioClip shootingSound;
     public AudioClip explositonSound;
     public AudioClip deathSound;
-    public AudioClip VictorySound;
+    public AudioClip victorySound;
+    public AudioClip defeatSound;
+    private AudioSource myAudioSource;
 
     // So that the game result win/lose only plays onces
     private bool playGameResult = true;
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        myAudioSource = GetComponent<AudioSource>();
         // set the timr to max time
         timeRemaining = maxTime;
     }
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
         { 
             WinGame();
         }
-        else if (player == null && playGameResult)
+        else if ((player == null && playGameResult) || timeRemaining <= 0.0)
         {
             LoseGame();
         }
@@ -73,12 +76,32 @@ public class GameManager : MonoBehaviour
     void WinGame()
     {
         Debug.Log("Great work Soldier!!!!");
-        playGameResult = false; 
+        playGameResult = false;
+
+        if (instance.victorySound != null)
+        {
+            myAudioSource.PlayOneShot(victorySound);
+        }
+        
     }
 
     void LoseGame()
     {
         Debug.Log("Disapointing Failure!!!!");
         playGameResult = false;
+
+        // checks if there is an audio listener already present 
+        // if not add one and play loss sound
+        AudioListener listener = FindObjectOfType<AudioListener>();
+        
+        if (listener == null)
+        {
+            gameObject.AddComponent<AudioListener>();
+        }
+
+        if(instance.victorySound != null)
+        {
+            myAudioSource.PlayOneShot(defeatSound);
+        }
     }
 }
